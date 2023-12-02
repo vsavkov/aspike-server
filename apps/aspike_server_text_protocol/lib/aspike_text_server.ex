@@ -1,4 +1,4 @@
-defmodule Aspike.Server do
+defmodule Aspike.TextServer do
   @moduledoc false
   use Task, restart: :transient
   require Logger
@@ -7,13 +7,9 @@ defmodule Aspike.Server do
     Task.start_link(__MODULE__, :accept, [arg])
   end
 
-def accept(port) do
+  def accept(port) do
     {:ok, socket} = :gen_tcp.listen(port,
-      [:binary,
-        packet: :raw,
-        active: false,
-        reuseaddr: true,
-        backlog: 4096])
+      [:binary, packet: :line, active: false, reuseaddr: true])
     Logger.info "Accepting connections on port #{port}"
     loop_acceptor(socket)
   end
@@ -21,8 +17,8 @@ def accept(port) do
   defp loop_acceptor(socket) do
     {:ok, client} = :gen_tcp.accept(socket)
     {:ok, pid} = Task.Supervisor.start_child(
-      Aspike.Server.ProcessorSupervisor,
-      Aspike.Server.Processor, :run, [client, <<>>])
+      Aspike.TextServer.ProcessorSupervisor,
+      Aspike.TextServer.Processor, :process, [client])
     :ok = :gen_tcp.controlling_process(client, pid)
     loop_acceptor(socket)
   end

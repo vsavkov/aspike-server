@@ -1,6 +1,6 @@
 # AspikeServer
 
-**TODO: Add description**
+**Binary Aerospike Cluster protocol - Aerospike Server Emulator, in Erlang/Elixir**
 
 ## Installation
 

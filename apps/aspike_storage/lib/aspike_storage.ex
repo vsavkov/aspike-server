@@ -1,18 +1,9 @@
-defmodule AspikeStorage do
-  @moduledoc """
-  Documentation for `AspikeStorage`.
-  """
+defmodule Aspike.Storage do
+  @moduledoc false
+  use Application
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> AspikeStorage.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def start(_type, _args) do
+    Aspike.Storage.Sup.start_link
   end
+
 end

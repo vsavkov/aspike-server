@@ -1,4 +1,3 @@
-# AspikeServerUmbrella
+# Aerospike Server Emulator
 
-**TODO: Add description**
-
+*Uses Aerospike Binary Protocol* - https://github.com/vsavkov/aspike-protocol
